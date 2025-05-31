@@ -1,4 +1,5 @@
 
+
 # Getting Started with Localization
 
 ## Pre-requirements
@@ -22,11 +23,18 @@ git clone --recurse-submodules https://github.com/your-id/x-minecraft-launcher
 
 ### Install
 
-**Optional**, install the project using [pnpm](https://pnpm.io):
+**Optional**, if you want to test your translations locally, you'll need to install the project's dependencies.
+
+This project supports [Nix](https://nixos.org/download.html) (with flakes enabled) and [direnv](https://direnv.net/docs/installation.html) for a reproducible development environment. If you have Nix and direnv installed and wish to use them for local testing:
+1. After cloning, `cd` into the project directory (e.g., `x-minecraft-launcher`).
+2. Run `direnv allow`.
+This will automatically configure your shell with the correct versions of Node.js, pnpm, and other dependencies defined in `flake.nix`, preparing the environment for the next step.
+
+Once your environment is set up (either via Nix/direnv or by manually ensuring you have Node.js and pnpm), install the project dependencies using [pnpm](https://pnpm.io/):
 
 Under the folder you cloned, e.g. `x-minecraft-launcher`, run command
 
-```
+```bash
 pnpm install
 ```
 
@@ -68,6 +76,7 @@ Suppose you want to add `French` (`fr`), you can open the file `assets\locales.j
   "zh-TW": "繁體中文",
   "en": "English",
   "ru": "Русский язык",
+  "uk": "Українська мова",
   "es-ES": "Español"
 }
 ```
@@ -80,6 +89,7 @@ adding a new line at the end
   "zh-TW": "繁體中文",
   "en": "English",
   "ru": "Русский язык",
+  "uk": "Українська мова",
   "es-ES": "Español",
   "fr": "French"
 }
@@ -88,4 +98,3 @@ adding a new line at the end
 ### Send Pull Request
 
 Please follow the [github guide](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) about how to send pull request.
-

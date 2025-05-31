@@ -1,11 +1,9 @@
-
 ### Tech Stack & Some Background
 
 <kbd>[<img title="Ukraine" alt="Ukraine" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/1280px-Flag_of_Ukraine.svg.png" width="22">](contributing/CONTRIBUTING.ua.md)</kbd>
 <kbd>[<img title="Russia" alt="Russia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/1280px-Flag_of_Russia.svg.png" width="22">](contributing/CONTRIBUTING.ru.md)</kbd>
 <kbd>[<img title="Polish" alt="Polish" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Flag_of_Poland.svg/250px-Flag_of_Poland.svg.png" width="22">](contributing/CONTRIBUTING.pl)</kbd>
 <kbd>[<img title="Deutsch" alt="Deutsch" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2uEryZuDlXosocJnvXBB0kYWkrtTNNINFaaJQySlzoRRolztbc2Pgrw7u3WLxVqcpC4k&usqp=CAU" width="22">](contributing/CONTRIBUTING.de.md)</kbd>
-
 
 Here we have a overview of the toolchain & runtime of this project
 
@@ -47,12 +45,11 @@ For renderer side, which is the pure front-end
 - xmcl-runtime-api
   - This is the shared code & API for XMCL runtime. It can be used for renderer app (browser side)
 
-
 ### Concept/Structure
 
 The launcher is composed by "server/client" or "main/renderer". They communicates with each other by Electron's [ipcMain](https://electronjs.org/docs/api/ipc-main) and [ipcRenderer](https://electronjs.org/docs/api/ipc-renderer).
 
-The main is the "backend" of the launcher. It manages the windows, and all the persistent data/state of the app. It manages the state by [Vuex](https://vuex.vuejs.org/). Once the state/data has been modified by a [Vuex commit](https://vuex.vuejs.org/guide/mutations.html), it will broadcast a ipc message containing the [mutation info]((https://vuex.vuejs.org/guide/mutations.html)) the all the renderer. At the same time, it will trigger the save action of the modified module to write the change on disk.
+The main is the "backend" of the launcher. It manages the windows, and all the persistent data/state of the app. It manages the state by [Vuex](https://vuex.vuejs.org/). Once the state/data has been modified by a [Vuex commit](https://vuex.vuejs.org/guide/mutations.html), it will broadcast a ipc message containing the [mutation info](<(https://vuex.vuejs.org/guide/mutations.html)>) the all the renderer. At the same time, it will trigger the save action of the modified module to write the change on disk.
 
 The renderer is/are just (a) browsers which communicate with main. It maintains a copy of the store. (I can be a full copy, or a partial copy) User's input will trigger an [action](https://vuex.vuejs.org/guide/actions.html) or [commit](https://vuex.vuejs.org/guide/mutations.html), and it will be sync to the main. Though, it does't require any extra action for developer. The local commit and action will automatically send to main. The developer can treat the renderer as a normal vue application.
 
@@ -72,7 +69,7 @@ Some examples:
 1. `xmcl-runtime/services/InstanceService.ts` contains the API implementation of add/remove/update of instances. The `xmcl-runtime-api/services/InstanceService.ts` contains the interface of the `InstanceService`
 2. `xmcl-runtime/services/InstanceVersionService.ts` contains the API implementation of checking instance version health. It will determine what version will the instance use, and whether should we install that version.
 3. `xmcl-runtime/services/InstallService.ts` contains the API implementation of install Minecraft/Forge/Fabric and etc.
-3. `xmcl-runtime/services/LaunchService.ts` contains the API implementation of launch an instance.
+4. `xmcl-runtime/services/LaunchService.ts` contains the API implementation of launch an instance.
 
 ## Contribute
 
@@ -97,22 +94,29 @@ git submodule update
 
 #### Install
 
-Install the project using [pnpm](https://pnpm.io):
+This project supports [Nix](https://nixos.org/download.html) (with flakes enabled) and [direnv](https://direnv.net/docs/installation.html) for a reproducible development environment. If you have Nix and direnv installed:
 
-```
+1. After cloning, `cd` into the project directory.
+2. Run `direnv allow`.
+   This will automatically configure your shell with the correct versions of Node.js, pnpm, and other dependencies defined in `flake.nix`.
+
+Once your environment is set up (either via Nix or by manually ensuring you have the prerequisites like Node.js and pnpm), install the project dependencies using [pnpm](https://pnpm.io/):
+
+```bash
 pnpm install
 ```
 
 <details>
   <summary> 解决中国国内安装依赖（如 Electron）太慢的办法 </summary>
 
-  打开你的 git bash，在 `pnpm i` 前面加上 `registry=https://registry.npm.taobao.org electron_mirror="https://npm.taobao.org/mirrors/electron/"`。使用国内阿里提供的 npm 以及 Electron 的镜像。
+打开你的 git bash，在 `pnpm i` 前面加上 `registry=https://registry.npm.taobao.org electron_mirror="https://npm.taobao.org/mirrors/electron/"`。使用国内阿里提供的 npm 以及 Electron 的镜像。
 
-  最终输入的 command 也就是
+最终输入的 command 也就是
 
-  ```bash
-  registry=https://registry.npm.taobao.org electron_mirror="https://npm.taobao.org/mirrors/electron/" pnpm i
-  ```
+```bash
+registry=https://registry.npm.taobao.org electron_mirror="https://npm.taobao.org/mirrors/electron/" pnpm i
+```
+
 </details>
 
 #### Set Environment Variables
@@ -140,7 +144,7 @@ npm run dev:renderer
 
 Open another terminal
 
-``` bash
+```bash
 # Start watching main process code
 npm run dev:main
 ```
@@ -184,7 +188,6 @@ We have two options now:
 2. Electron: Main (attach)
 
 If you use the first one to launch, it will automatically attach the debugger to the instance.
-
 
 ### Commit your code
 

@@ -1,4 +1,5 @@
 
+
 ### 技术栈与项目背景
 
 在这里，我们概述了这个项目使用的工具链与运行时。
@@ -90,9 +91,13 @@ git submodule update
 
 #### 安装依赖
 
-使用 [pnpm](https://pnpm.io) 安装项目：
+本项目支持使用 [Nix](https://nixos.org/download.html) (需启用 flakes 功能) 和 [direnv](https://direnv.net/docs/installation.html) 来创建一个可复现的开发环境。如果您已经安装了 Nix 和 direnv：
+1. 克隆项目后，使用 `cd` 命令进入项目目录。
+2. 运行 `direnv allow`。
+这将自动根据 `flake.nix` 文件中的定义，为您的 shell 配置正确版本的 Node.js、pnpm 及其他依赖项。
 
-```
+一旦您的开发环境设置完毕（无论是通过 Nix/direnv 还是手动确保您已安装了 Node.js 和 pnpm 等先决条件），请使用 [pnpm](https://pnpm.io/) 安装项目依赖：
+```bash
 pnpm install
 ```
 
